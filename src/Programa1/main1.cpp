@@ -1,6 +1,6 @@
 /**
 * @file		main1.cpp
-* @brief	Verifica se strings são palindromos
+* @brief	Verifica se strings são palindromos.
 * @details	
 *
 * @author	Alison Sidnei Ferreira de Andrade
