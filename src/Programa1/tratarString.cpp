@@ -33,7 +33,7 @@ std::string TratarString(std::string in){
 	in = RemoverAcentos(in);
 
 	for (unsigned i = 0; i < in.size(); i++){
-		if((in[i] >= 65 && in[i] <= 90) || (in[i] >= 97 && in[i] <= 122)) {
+		if((in[i] >= 48 && in[i] <= 57) || (in[i] >= 65 && in[i] <= 90) || (in[i] >= 97 && in[i] <= 122)) {
 			if(in[i] >= 65 && in[i] <= 90) {
 				aux += in[i]+32;
 			}else{
