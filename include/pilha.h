@@ -6,7 +6,7 @@
 template <typename T>
 class pilha {
 private:
-	ListaLigada<T> m_fila;
+	ListaLigada<T> m_lista;
 	shared_ptr<Node<T>> m_top;
 public:
 	pilha();
@@ -25,19 +25,22 @@ pilha<T>::pilha(): m_top(nullptr)
 {}
 
 template <typename T>
-pilha<T>::~pilha()
-{}
+pilha<T>::~pilha(){
+	while(!this->empty()){
+		this->pop();
+	}
+}
 
 template <typename T>
 void pilha<T>::push(T top_){
-	m_fila.InsereNoInicio(top_);
-	m_top = m_fila.getCabeca();
+	m_lista.InsereNoInicio(top_);
+	m_top = m_lista.getCabeca();
 }
 
 template <typename T>
 void pilha<T>::pop(){
-	m_fila.RemoveNoInicio();
-	m_top = m_fila.getCabeca();
+	m_lista.RemoveNoInicio();
+	m_top = m_lista.getCabeca();
 }
 
 template <typename T>
@@ -47,5 +50,5 @@ T pilha<T>::top(){
 
 template<typename T>
 bool pilha<T>::empty(){
-	return m_fila.getCabeca() == m_fila.getCauda() ? true : false;
+	return m_lista.size() == 0 ? true : false;
 }

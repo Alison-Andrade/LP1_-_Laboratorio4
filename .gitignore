@@ -2,3 +2,6 @@ Programa*
 *.o
 teste*
 *~
+doc/
+bin/
+build/
