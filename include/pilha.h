@@ -16,6 +16,7 @@ public:
 	void pop();
 	void push(T top_);
 	bool empty();
+	int size();
 };
 
 #endif
@@ -51,4 +52,9 @@ T pilha<T>::top(){
 template<typename T>
 bool pilha<T>::empty(){
 	return m_lista.size() == 0 ? true : false;
+}
+
+template<typename T>
+bool pilha<T>::size(){
+	return m_lista.size();
 }

@@ -85,12 +85,12 @@ private:
 public:
 	ListaLigada();
 	~ListaLigada();
-	bool InsereNoInicio(T _valor);
-	bool InsereNoFinal(T _valor);
-	bool InsereNaPosicao(int pos, T _valor);
-	bool RemoveNoInicio();
-	bool RemoveNoFinal();
-	bool RemoveNaPosicao(int pos);
+	virtual bool InsereNoInicio(T _valor);
+	virtual bool InsereNoFinal(T _valor);
+	virtual bool InsereNaPosicao(int pos, T _valor);
+	virtual bool RemoveNoInicio();
+	virtual bool RemoveNoFinal();
+	virtual bool RemoveNaPosicao(int pos);
 
 	shared_ptr<Node<T>> getCabeca();
 	shared_ptr<Node<T>> getCauda();

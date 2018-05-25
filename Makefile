@@ -12,9 +12,9 @@ CPPFLAGS = -Wall -pedantic -std=c++11
 
 .PHONY: all clean doc
 
-all: dir Programa1 Programa2
+all: dir doc Programa1 Programa2
 
-debug: CFLAGS += -g -O0
+debug: CPPFLAGS += -g -O0
 debug: dir Programa1 Programa2
 
 Programa1: $(OBJ)/main1.o $(OBJ)/tratarString.o
@@ -39,5 +39,5 @@ doc:
 	$(RM) $(DOC)/*
 	doxygen Doxyfile
 
-clean: dir
+clean:
 	$(RM) $(BIN)/* $(OBJ)/* $(DOC)/* *.o *.out
