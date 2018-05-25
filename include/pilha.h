@@ -13,8 +13,8 @@ public:
 	~pilha();
 
 	T top();
-	void pop();
-	void push(T top_);
+	bool pop();
+	bool push(T top_);
 	bool empty();
 	int size();
 };
@@ -33,15 +33,19 @@ pilha<T>::~pilha(){
 }
 
 template <typename T>
-void pilha<T>::push(T top_){
-	m_lista.InsereNoInicio(top_);
+bool pilha<T>::push(T top_){
+	if(!m_lista.InsereNoInicio(top_)) return false;
+	
 	m_top = m_lista.getCabeca();
+	return true;
 }
 
 template <typename T>
-void pilha<T>::pop(){
-	m_lista.RemoveNoInicio();
+bool pilha<T>::pop(){
+	if(!m_lista.RemoveNoInicio()) return false;
+
 	m_top = m_lista.getCabeca();
+	return true;
 }
 
 template <typename T>
@@ -55,6 +59,6 @@ bool pilha<T>::empty(){
 }
 
 template<typename T>
-bool pilha<T>::size(){
+int pilha<T>::size(){
 	return m_lista.size();
 }

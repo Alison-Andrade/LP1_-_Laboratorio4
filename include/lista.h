@@ -78,7 +78,7 @@ std::ostream& operator<<( std::ostream&, ListaLigada<T> const & );
 
 template <typename T>
 class ListaLigada {
-private:
+protected:
 	shared_ptr<Node<T>> cabeca;
 	shared_ptr<Node<T>> cauda;
 	int tamanho;

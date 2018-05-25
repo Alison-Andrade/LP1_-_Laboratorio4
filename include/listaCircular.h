@@ -25,8 +25,11 @@ ListaCircular<T>::ListaCircular():ListaLigada(), cauda(nullptr){
 }
 
 template<typename T>
-ListaCircular<T>::~ListaCircular()
-{}
+ListaCircular<T>::~ListaCircular(){
+	while(cauda->getNext() != cauda) {
+	    cauda = cauda->getNext();
+	}
+}
 
 template<typename T>
 bool ListaCircular<T>::InsereNoInicio(T _valor){
@@ -44,14 +47,8 @@ bool ListaCircular<T>::InsereNoFinal(T _valor){
 	auto newLast = make_shared<Node<T>>(_valor);
 	if(!newLast) return false;
 
-	auto aux = cauda->getNext();
-
-	while(aux->getNext() != cauda) {
-	    aux = aux->getNext();
-	}
-
-	aux->setNext(newLast);
-	newLast->setNext(cauda);
+	cauda->setNext(newLast);
+	cauda = newLast;
 
 	return true;
 }
@@ -63,7 +60,7 @@ bool ListaCircular<T>::InsereNaPosicao(int pos, T _valor){
 
 	auto aux = cauda->getNext();
 
-	int i = 0;
+	int i = 1;
 	while(i != pos-1 && aux->getNext() != cauda) {
 	    aux = aux->getNext();
 	    i++;
@@ -71,8 +68,8 @@ bool ListaCircular<T>::InsereNaPosicao(int pos, T _valor){
 
 	if(i != pos-1) return false;
 
+	novo->setNext(aux->getNext());
 	aux->setNext(novo);
-	novo->setNext(cauda);
 
 	return true;
 }
@@ -116,7 +113,7 @@ bool ListaCircular<T>::RemoveNaPosicao(int pos){
 	    aux = aux->getNext();
 	} while (i != pos && aux->getNext() != cauda);
 
-	prev->setNext(cauda);
+	prev->setNext(aux->getNext());
 
 	return true;
 }
