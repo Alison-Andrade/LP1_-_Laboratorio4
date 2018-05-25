@@ -39,6 +39,8 @@ bool ListaCircular<T>::InsereNoInicio(T _valor){
 	newFirst->setNext(cauda->getNext());
 	cauda->setNext(newFirst);
 
+	this->tamanho++;
+
 	return true;
 }
 
@@ -49,6 +51,8 @@ bool ListaCircular<T>::InsereNoFinal(T _valor){
 
 	cauda->setNext(newLast);
 	cauda = newLast;
+
+	this->tamanho++;
 
 	return true;
 }
@@ -71,6 +75,8 @@ bool ListaCircular<T>::InsereNaPosicao(int pos, T _valor){
 	novo->setNext(aux->getNext());
 	aux->setNext(novo);
 
+	this->tamanho++;
+
 	return true;
 }
 
@@ -80,6 +86,8 @@ bool ListaCircular<T>::RemoveNoInicio(){
 
 	cauda->setNext(cauda->getNext()->getNext());
 
+	this->tamanho--;
+
 	return true;
 }
 
@@ -87,15 +95,16 @@ template<typename T>
 bool ListaCircular<T>::RemoveNoFinal(){
 	if(cauda->getNext() == cauda) return false;
 
-	auto aux = cauda;
-	auto prev;
+	auto prev = cauda->getNext();
 
-	do{
-		prev = aux;
-	    aux = aux->getNext();
-	} while (aux->getNext() != cauda);
+	while (prev->getNext() != cauda){
+		prev = prev->getNext();
+	}
 
-	prev->setNext(cauda);
+	prev->setNext(cauda->getNext());
+	cauda = prev;
+
+	this->tamanho--;
 
 	return true;
 }
@@ -114,6 +123,8 @@ bool ListaCircular<T>::RemoveNaPosicao(int pos){
 	} while (i != pos && aux->getNext() != cauda);
 
 	prev->setNext(aux->getNext());
+
+	this->tamanho--;
 
 	return true;
 }

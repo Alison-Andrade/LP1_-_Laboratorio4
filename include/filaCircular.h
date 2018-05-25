@@ -26,8 +26,11 @@ FilaCircular<T>::FilaCircular(): m_front(nullptr), m_back(nullptr)
 {}
 
 template<typename T>
-FilaCircular<T>::~FilaCircular()
-{}
+FilaCircular<T>::~FilaCircular(){
+	while(!this->empty()){
+		this->pop();
+	}
+}
 
 template<typename T>
 bool FilaCircular<T>::empty(){
