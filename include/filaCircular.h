@@ -44,12 +44,12 @@ int FilaCircular<T>::size(){
 
 template<typename T>
 T FilaCircular<T>::front(){
-	return m_front.getValor();
+	return m_front->getValor();
 }
 
 template<typename T>
 T FilaCircular<T>::back(){
-	return m_back.getValor();
+	return m_back->getValor();
 }
 
 template<typename T>
@@ -57,13 +57,29 @@ bool FilaCircular<T>::push(T _valor){
 	if(!m_listaC.InsereNoFinal(_valor)) return false;
 
 	if(this->size() == 1) {
-		m_front = m_listaC.getCauda()->getNext();
+		m_front = m_listaC.getCauda();
+		m_back = m_front;
 	}
+
+	m_back = m_listaC.getCauda();
+
+	return true;
 }
 
 template<typename T>
 bool FilaCircular<T>::pop(){
-	m_listaC.getCauda()->setNext(m_listaC.getCauda()->getNext()->getNext());
+	if(this->empty() || !m_listaC.RemoveNoInicio()){
+		
+		std::cerr << "Impossível remover, fila vazia." << endl;
+
+		return false;
+	}
+
+	if(this->size() != 0) {
+		m_front = m_listaC.getCauda()->getNext();
+	}
+
+	return true;
 
 }
 

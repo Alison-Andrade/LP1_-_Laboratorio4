@@ -12,10 +12,10 @@ CPPFLAGS = -Wall -pedantic -std=c++11
 
 .PHONY: all clean doc
 
-all: dir doc Programa1 Programa2
+all: dir Programa1 Programa2 Programa3
 
 debug: CPPFLAGS += -g -O0
-debug: dir Programa1 Programa2
+debug: dir Programa1 Programa2 Programa3
 
 Programa1: $(OBJ)/main1.o $(OBJ)/tratarString.o
 	$(CC) $(CPPFLAGS) -o $(BIN)/$@ $^
@@ -30,6 +30,12 @@ Programa2: $(OBJ)/main2.o
 	$(CC) $(CPPFLAGS) -o $(BIN)/$@ $^
 
 $(OBJ)/main2.o: $(SRC)/Programa2/main2.cpp $(INC)
+	$(CC) -c $(CPPFLAGS) -I$(INC) -o $@ $<
+
+Programa3: $(OBJ)/main3.o
+	$(CC) $(CPPFLAGS) -o $(BIN)/$@ $^
+
+$(OBJ)/main3.o: $(SRC)/Programa3/main3.cpp $(INC)
 	$(CC) -c $(CPPFLAGS) -I$(INC) -o $@ $<
 
 dir:

@@ -4,7 +4,7 @@
 #include "lista.h"
 
 template <typename T>
-class ListaCircular : public  ListaLigada{
+class ListaCircular : public  ListaLigada<T> {
 private:
 	
 public:
@@ -20,15 +20,16 @@ public:
 };
 
 template<typename T>
-ListaCircular<T>::ListaCircular():ListaLigada(), cauda(nullptr){
-	cauda->setNext(cauda);
+ListaCircular<T>::ListaCircular(): ListaLigada<T>(){
+	// this->cauda = nullptr;
+	// this->cauda->setNext(this->cauda);
 }
 
 template<typename T>
 ListaCircular<T>::~ListaCircular(){
-	while(cauda->getNext() != cauda) {
-	    cauda = cauda->getNext();
-	}
+	// while(this->cauda->getNext() != this->cauda) {
+	//     this->cauda = this->cauda->getNext();
+	// }
 }
 
 template<typename T>
@@ -36,8 +37,13 @@ bool ListaCircular<T>::InsereNoInicio(T _valor){
 	auto newFirst = make_shared<Node<T>>(_valor);
 	if(!newFirst) return false;
 
-	newFirst->setNext(cauda->getNext());
-	cauda->setNext(newFirst);
+	if(this->size() == 0) {
+		this->cauda = newFirst;
+		this->cauda->setNext(this->cauda);
+	}else{
+		newFirst->setNext(this->cauda->getNext());
+		this->cauda->setNext(newFirst);
+	}
 
 	this->tamanho++;
 
@@ -49,8 +55,14 @@ bool ListaCircular<T>::InsereNoFinal(T _valor){
 	auto newLast = make_shared<Node<T>>(_valor);
 	if(!newLast) return false;
 
-	cauda->setNext(newLast);
-	cauda = newLast;
+	if(this->size() == 0) {
+		this->cauda = newLast;
+		this->cauda->setNext(this->cauda);
+	}else{
+		newLast->setNext(this->cauda->getNext());
+		this->cauda->setNext(newLast);
+		this->cauda = newLast;
+	}
 
 	this->tamanho++;
 
@@ -62,10 +74,10 @@ bool ListaCircular<T>::InsereNaPosicao(int pos, T _valor){
 	auto novo = make_shared<Node<T>>(_valor);
 	if(!novo) return false;
 
-	auto aux = cauda->getNext();
+	auto aux = this->cauda->getNext();
 
 	int i = 1;
-	while(i != pos-1 && aux->getNext() != cauda) {
+	while(i != pos-1 && aux->getNext() != this->cauda) {
 	    aux = aux->getNext();
 	    i++;
 	}
@@ -82,9 +94,16 @@ bool ListaCircular<T>::InsereNaPosicao(int pos, T _valor){
 
 template<typename T>
 bool ListaCircular<T>::RemoveNoInicio(){
-	if(cauda->getNext() == cauda) return false;
+	if(this->tamanho == 0) return false;
 
-	cauda->setNext(cauda->getNext()->getNext());
+	if(this->tamanho == 1) {
+		this->cauda = nullptr;	
+	}else{
+		auto aux = this->cauda->getNext();
+		this->cauda->setNext(aux->getNext());
+
+		aux = nullptr;
+	}
 
 	this->tamanho--;
 
@@ -93,16 +112,16 @@ bool ListaCircular<T>::RemoveNoInicio(){
 
 template<typename T>
 bool ListaCircular<T>::RemoveNoFinal(){
-	if(cauda->getNext() == cauda) return false;
+	if(this->cauda->getNext() == this->cauda) return false;
 
-	auto prev = cauda->getNext();
+	auto prev = this->cauda->getNext();
 
-	while (prev->getNext() != cauda){
+	while (prev->getNext() != this->cauda){
 		prev = prev->getNext();
 	}
 
-	prev->setNext(cauda->getNext());
-	cauda = prev;
+	prev->setNext(this->cauda->getNext());
+	this->cauda = prev;
 
 	this->tamanho--;
 
@@ -111,16 +130,16 @@ bool ListaCircular<T>::RemoveNoFinal(){
 
 template<typename T>
 bool ListaCircular<T>::RemoveNaPosicao(int pos){
-	if(cauda->getNext() == cauda) return false;
+	if(this->cauda->getNext() == this->cauda) return false;
 
-	auto aux = cauda;
-	auto prev;
+	auto aux = this->cauda;
+	auto prev = aux;
 
 	int i = 0;
 	do{
 		prev = aux;
 	    aux = aux->getNext();
-	} while (i != pos && aux->getNext() != cauda);
+	} while (i != pos && aux->getNext() != this->cauda);
 
 	prev->setNext(aux->getNext());
 
