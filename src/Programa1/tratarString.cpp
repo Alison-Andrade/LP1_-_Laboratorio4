@@ -1,6 +1,6 @@
 /**
 * @file		tratarString.cpp
-* @brief	Funções para remoção de caracteres especiais e acentuação de strings
+* @brief	Implementação de funções para remoção de caracteres especiais e acentuação de strings
 * @details	
 *
 * @author	Alison Sidnei Ferreira de Andrade

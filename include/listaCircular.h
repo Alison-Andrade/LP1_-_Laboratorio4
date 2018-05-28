@@ -20,16 +20,14 @@ public:
 };
 
 template<typename T>
-ListaCircular<T>::ListaCircular(): ListaLigada<T>(){
-	// this->cauda = nullptr;
-	// this->cauda->setNext(this->cauda);
-}
+ListaCircular<T>::ListaCircular(): ListaLigada<T>()
+{}
 
 template<typename T>
 ListaCircular<T>::~ListaCircular(){
-	// while(this->cauda->getNext() != this->cauda) {
-	//     this->cauda = this->cauda->getNext();
-	// }
+	while(this->size() != 0) {
+	    this->RemoveNoInicio();
+	}
 }
 
 template<typename T>
@@ -99,10 +97,7 @@ bool ListaCircular<T>::RemoveNoInicio(){
 	if(this->tamanho == 1) {
 		this->cauda = nullptr;	
 	}else{
-		auto aux = this->cauda->getNext();
-		this->cauda->setNext(aux->getNext());
-
-		aux = nullptr;
+		this->cauda->setNext(this->cauda->getNext()->getNext());
 	}
 
 	this->tamanho--;

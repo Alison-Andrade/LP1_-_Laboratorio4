@@ -1,3 +1,10 @@
+/**
+* @file		filaCircular.h
+* @brief	Declaração e implementação dos métodos e atributos da classe FilaCircular<T>
+*
+* @author	Alison Sidnei Ferreira de Andrade
+*/
+
 #ifndef _FILACIRCULAR_H_
 #define _FILACIRCULAR_H_
 
@@ -13,11 +20,41 @@ public:
 	FilaCircular();
 	~FilaCircular();
 
+	/**
+	* @brief Verifica se a fila está vazia
+	* @return true, se a fila está vazia
+	*/
 	bool empty();
+
+	/**
+	* @brief Verifica tamanho da fila
+	* @return Tamanho de \a "lista circular" que contem os elementos da fila
+	*/
 	int size();
+
+	/**
+	* @brief Busca elemento na frente da fila
+	* @return Elemento na frente da fila
+	*/
 	T front();
+
+	/**
+	* @brief Busca elemento no final da fila
+	* @return Elemento no final da fila
+	*/
 	T back();
+
+	/**
+	* @brief Insere elemento no final da fila
+	* @param _valor Elemento a ser inserido
+	* @return true, se inserido corretamente
+	*/
 	bool push(T _valor);
+
+	/**
+	* @brief Remove primeiro elemento da fila
+	* @return true, se removido corretamente
+	*/
 	bool pop();
 };
 
@@ -70,7 +107,7 @@ template<typename T>
 bool FilaCircular<T>::pop(){
 	if(this->empty() || !m_listaC.RemoveNoInicio()){
 		
-		std::cerr << "Impossível remover, fila vazia." << endl;
+		std::cerr << "ERRO: Impossível remover, fila vazia." << endl;
 
 		return false;
 	}
